@@ -1,0 +1,56 @@
+/* components/Header.module.css */
+.header {
+  display: flex;
+  align-items: center;
+  /* 全体の背景色などお好みで */
+  background-color: #f8f8f8;
+  padding: 0.5rem 1rem;
+  /* もしスクロール時に固定したいなら
+     position: sticky;
+     top: 0;
+  */
+}
+
+.logo {
+  height: 40px;
+  object-fit: contain;
+  margin-right: 0.5rem; /* ロゴと会社名の間の隙間 */
+}
+
+.companyName {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.searchInput {
+  flex: 1; /* 検索バーを広げたい場合は flex:1 など */
+  max-width: 300px; /* 必要なら横幅上限 */
+  margin-right: 1rem;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.nav a {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #333;
+}
+
+.darkModeBtn {
+  margin-right: 1rem;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #ccc;
+}
+
+.userIcon {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%; /* 丸アイコンに */
+  object-fit: cover;
+  cursor: pointer;
+}

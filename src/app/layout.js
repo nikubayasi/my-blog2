@@ -1,6 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
+import './globals.css'      // 全体CSS
+import Header from './components/Header'
+import { ClerkProvider } from "@clerk/nextjs";
+import  ThemeCom from "./components/ThemeCom"
+import { ThemeProvider } from "next-themes";
+import{ThemeModeScript} from'flowbite-react';
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -18,12 +22,21 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    <ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeModeScript />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider>
+          <ThemeCom>
+            <Header />
+            {children}
+          </ThemeCom>
+          </ThemeProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
