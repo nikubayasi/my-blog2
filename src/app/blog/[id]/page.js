@@ -2,7 +2,7 @@
 import { use } from "react";
 import { useState } from "react";
 import { useParams,useRouter } from "next/navigation";
-import { getPostById } from "@/app/lib/posts";
+import { getPostById } from "@/lib/posts";
 
 export default function PostPage({ params }) {
   const { id } = use(params); // ✅ `use()` で unwrap する

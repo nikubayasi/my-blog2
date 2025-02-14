@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/app/lib/posts";
+import { getAllPosts } from "@/lib/posts";
 import Link from "next/link";
 
 export default function BlogPage() {

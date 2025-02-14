@@ -1,5 +1,5 @@
 // app/api/posts/route.js
-import { createPost, updatePost, deletePost, getAllPosts } from "@/app/lib/posts";
+import { createPost, updatePost, deletePost, getAllPosts } from "@/lib/posts";
 
 export async function GET() {
   return Response.json(getAllPosts());
