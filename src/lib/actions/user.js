@@ -12,6 +12,9 @@ export const createOrUpdateUser = async (
 ) => {
   try {
     await connect();
+    if (!Array.isArray(email_addresses) || email_addresses.length === 0) {
+      throw new Error('メールアドレスの情報が不足しています');
+    }
     const user = await User.findOneAndUpdate(
       { clerkId: id },
       {

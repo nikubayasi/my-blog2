@@ -5,6 +5,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import  ThemeCom from "./components/ThemeCom"
 import { ThemeProvider } from "next-themes";
 import{ThemeModeScript} from'flowbite-react';
+
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
