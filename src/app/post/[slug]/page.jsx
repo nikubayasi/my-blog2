@@ -2,11 +2,13 @@ import CallToAction from '@/app/components/CallToAction';
 import RecentPosts from '@/app/components/RecentPosts';
 import {Button } from 'flowbite-react';
 import Link from 'next/link';
+import { headers } from 'next/headers';
 
 export default async function PostPage({params}){
+  const headerStore = await headers();
   let post = null;
   try{
-    const result = await fetch(process.env.URL + '/api/post/get',{
+    const result = await fetch(process.env.URL + '/api/posts/get',{
       method: 'POST',
       body: JSON.stringify({slug: params.slug}),
       cache: `no-store`

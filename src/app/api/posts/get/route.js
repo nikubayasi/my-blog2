@@ -33,10 +33,11 @@ export const POST = async(req) => {
   const lastMonthPosts = await Post.countDocuments({
     createdAt: {$gte: oneMonthAgo},
   });
-  return new Respons(JSON.stringify({posts, totalPosts, lastMonthPosts}),{
+  return new Response(JSON.stringify({posts, totalPosts, lastMonthPosts}),{
     status: 200,
   });
   }catch(error){
     console.log("Error getting posts:",error);
+    return new Response(JSON.stringify({ error: 'Error getting posts' }), { status: 500 });
   }
 };

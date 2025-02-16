@@ -12,9 +12,6 @@ export async function POST(req) {
       "Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local"
     );
   }
-
-
-
   // ヘッダー取得
 
   const headerPayload = await headers();
