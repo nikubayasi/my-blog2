@@ -16,7 +16,7 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage';
 
-import {CircularProgressbar} from'react-circular-progressbar';
+import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css'
 
 export default function CreatePostPage(){
@@ -71,7 +71,7 @@ export default function CreatePostPage(){
       const res = await fetch('/api/post/create',{
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           ...formData,
@@ -143,7 +143,7 @@ export default function CreatePostPage(){
                 ):(
                   'Upload Image'
                 )}
-                 'Upload Image'
+                 
               </Button>
           </div>
 
