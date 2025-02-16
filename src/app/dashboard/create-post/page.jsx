@@ -15,7 +15,7 @@ import {
   ref,
   uploadBytesResumable,
 } from 'firebase/storage';
-
+import { app } from '@/firebase';
 import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css'
 
@@ -44,7 +44,7 @@ export default function CreatePostPage(){
       uploadTask.on(
         'state_changed',
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred/ snapshot.totalBytes) * 100;
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setImageUploadProgress(progress.toFixed(0));
         },
         (error) => {
@@ -68,7 +68,7 @@ export default function CreatePostPage(){
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{
-      const res = await fetch('/api/post/create',{
+      const res = await fetch('/api/posts/create',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
