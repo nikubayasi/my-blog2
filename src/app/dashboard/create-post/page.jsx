@@ -114,8 +114,9 @@ export default function CreatePostPage(){
               <option value='uncategorized'>Select a category</option>
               <option value='javascript'>Javascript</option>
 
-              <option value='uncategorized'>React.js</option>
-              <option value='uncategorized'>Next.js</option>
+              <option value='reactjs'>React.js</option>
+              <option value='nextjs'>Next.js</option>
+              <option value='about'>about</option>
               
             </Select>
           </div>
