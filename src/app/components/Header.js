@@ -103,13 +103,6 @@ export default function Header() {
           </Navbar.Link>
         </Link>
       </Navbar.Collapse>
-
-      {/* 8) ユーザーアイコン */}
-      {/* <img
-        src="/usericon.jpg"
-        alt="User Icon"
-        className='w-12 rounded-full'
-      /> */}
       
     </Navbar>
 
