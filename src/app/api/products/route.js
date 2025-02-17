@@ -5,7 +5,6 @@ import Product from "../../../lib/models/Product"; // ✅ 修正
 export async function GET() {
   try {
     const db = await connect(); // ✅ `db` を取得
-    console.log("📌 Fetched DB:", db); // 🔍 デバッグ用ログ
 
     const products = await db.collection("products").find({}).toArray(); // ✅ `collection()` が使える
 
