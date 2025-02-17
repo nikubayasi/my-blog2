@@ -1,22 +1,23 @@
-import clientPromise from "../../../lib/mongodb";
+import { connect } from "../../../lib/mongodb/mongoose"; // ✅ 修正
 import { ObjectId } from "mongodb";
+import Product from "../../../lib/models/Product"; // ✅ 修正
 
-export async function GET(req) {
-  const client = await clientPromise;
-  const db = client.db("next-blog");
-  const collection = db.collection("products");
-
+export async function GET() {
   try {
-    const products = await collection.find({}).toArray();
+    const db = await connect(); // ✅ `db` を取得
+    console.log("📌 Fetched DB:", db); // 🔍 デバッグ用ログ
+
+    const products = await db.collection("products").find({}).toArray(); // ✅ `collection()` が使える
+
     return Response.json(products, { status: 200 });
   } catch (error) {
-    return Response.json({ message: "Error fetching products", error }, { status: 500 });
+    console.error("❌ 商品取得エラー:", error);
+    return Response.json({ message: "Error fetching products", error: error.message }, { status: 500 });
   }
 }
 
 export async function POST(req) {
-  const client = await clientPromise;
-  const db = client.db("next-blog");
+  const db = await connect(); // ✅ MongoDB に接続
   const collection = db.collection("products");
 
   try {
@@ -41,6 +42,7 @@ export async function POST(req) {
     await collection.insertOne(newProduct);
     return Response.json({ message: "Product added", product: newProduct }, { status: 201 });
   } catch (error) {
+    console.error("❌ 商品追加エラー:", error);
     return Response.json({ message: "Error adding product", error }, { status: 500 });
   }
 }

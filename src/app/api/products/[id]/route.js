@@ -1,74 +1,78 @@
-import clientPromise from "../../../../lib/mongodb";
-import { ObjectId } from "mongodb";
+import { connect } from "../../../../lib/mongodb/mongoose";
+import Product from "../../../../lib/models/Product"; // ✅ 修正
+
 
 export async function GET(req, { params }) {
-  const client = await clientPromise;
-  const db = client.db("next-blog");
-  const collection = db.collection("products");
+  await connect();
 
   try {
-    const id = params?.id;  // 修正
+    const id = params?.id;
     if (!id) {
       return Response.json({ message: "Missing product ID" }, { status: 400 });
     }
 
-    const product = await collection.findOne({ _id: new ObjectId(id) });
+    const product = await Product.findById(id);
+
     if (!product) {
       return Response.json({ message: "Product not found" }, { status: 404 });
     }
+
     return Response.json(product, { status: 200 });
   } catch (error) {
-    return Response.json({ message: "Error fetching product", error }, { status: 500 });
+    console.error("❌ 取得エラー:", error);
+    return Response.json({ message: "Error fetching product", error: error.message }, { status: 500 });
   }
 }
 
 export async function PUT(req, { params }) {
-  const client = await clientPromise;
-  const db = client.db("next-blog");
-  const collection = db.collection("products");
+  await connect();
 
   try {
-    const id = params?.id;  // 修正
+    const id = params?.id;
     if (!id) {
       return Response.json({ message: "Missing product ID" }, { status: 400 });
     }
 
     const body = await req.json();
-    const updatedProduct = await collection.findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      { $set: body },
-      { returnDocument: "after" }
-    );
+    console.log("🔍 更新データ:", body);
+    console.log("📌 更新する ID:", id);
 
-    if (!updatedProduct.value) {
+    delete body.id;
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedProduct) {
       return Response.json({ message: "Product not found" }, { status: 404 });
     }
 
-    return Response.json({ message: "Product updated", product: updatedProduct.value }, { status: 200 });
+    return Response.json({ message: "Product updated", product: updatedProduct }, { status: 200 });
   } catch (error) {
-    return Response.json({ message: "Error updating product", error }, { status: 500 });
+    console.error("❌ 更新エラー:", error);
+    return Response.json({ message: "Error updating product", error: error.message }, { status: 500 });
   }
 }
 
 export async function DELETE(req, { params }) {
-  const client = await clientPromise;
-  const db = client.db("next-blog");
-  const collection = db.collection("products");
+  await connect();
 
   try {
-    const id = params?.id;  // 修正
+    const id = params?.id;
     if (!id) {
       return Response.json({ message: "Missing product ID" }, { status: 400 });
     }
 
-    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+    const deletedProduct = await Product.findByIdAndDelete(id);
 
-    if (result.deletedCount === 0) {
+    if (!deletedProduct) {
       return Response.json({ message: "Product not found" }, { status: 404 });
     }
 
     return Response.json({ message: "Product deleted successfully" }, { status: 200 });
   } catch (error) {
-    return Response.json({ message: "Error deleting product", error }, { status: 500 });
+    console.error("❌ 削除エラー:", error);
+    return Response.json({ message: "Error deleting product", error: error.message }, { status: 500 });
   }
 }
